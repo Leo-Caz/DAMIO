@@ -17,26 +17,25 @@ void setup() {
   pinMode (start_pin, INPUT);
   pinMode (stop_pin, INPUT);
   lcd.begin (16, 2);
-  // lcd.print(">o_/");
-  lcd.setCursor(0, 0);
+  lcd.print ('>');
   lcd.print (test_prgm_names[current_prgm]);
-  lcd.setCursor (0, 1);
+  lcd.setCursor (1, 1);
   lcd.print (test_prgm_names[(current_prgm + 1) % total_nb_prgm]);
 }
 
 void loop() {
   button_down = digitalRead(next_prgm_pin);
-  if (button_down == HIGH && last_button_state == LOW) {
-    last_button_state = HIGH;
-    current_prgm = (current_prgm + 1) % total_nb_prgm;
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print (test_prgm_names[current_prgm]);
-    lcd.setCursor (0, 1);
-    lcd.print (test_prgm_names[(current_prgm + 1) % total_nb_prgm]);
-  }
-
-  else if (button_down == LOW && last_button_state == HIGH) {
-    last_button_state = LOW;
+  if (button_down != last_button_state) {
+    if (button_down == HIGH) {
+      last_button_state = HIGH;
+      current_prgm = (current_prgm + 1) % total_nb_prgm;
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print ('>');
+      lcd.print (test_prgm_names[current_prgm]);
+      lcd.setCursor (1, 1);
+      lcd.print (test_prgm_names[(current_prgm + 1) % total_nb_prgm]);
+    }
+    last_button_state = button_down;
   }
 }
