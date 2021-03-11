@@ -9,6 +9,16 @@ enum id_jours {
 	NB_JOURS
 };
 
+String nom_jours[NB_JOURS] = {
+	"Lundi",
+	"Mardi",
+	"Mercredi",
+	"Jeudi",
+	"Vendredi",
+	"Samedi",
+	"Dimanche"
+};
+
 enum id_prises {
 	p_matin,
 	p_midi,
