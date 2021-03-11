@@ -1,5 +1,6 @@
 #include "posologie.h"
-#define POSOLOGIE "traitement hiver"
+#define POSOLOGIE "hiver"
+#define TAILLE_NOM_POSOLOGIE 5
 
 enum {
 	m_A313,
