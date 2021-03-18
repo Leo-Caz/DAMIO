@@ -18,17 +18,17 @@ int couleur_p = 220;
 int couleur_v = 220;
 int couleur_b = 220;
 
-#define bouton_confirmer 2
-#define bouton_trait_suivant 4
+#define bouton_distrib 2
+#define bouton_suivant 4
 #define affichage_controles "suivant | lancer"
 #define largeur_ecran 16
 
-int traitement_selectionne = 0;
 int jour_choisi = 0;
-int etat_bouton_g = 0;
-int etat_bouton_d = 0;
-int dernier_etat_bouton_g = LOW;
-int dernier_etat_bouton_d = LOW;
+int e_suivant = 0;
+int e_distrib = 0;
+int der_e_suivant = LOW;
+int der_e_distrib = LOW;
+bool distribution = false;
 
 
 void Affichage() {
@@ -43,41 +43,66 @@ void Affichage() {
 
 
 void setup() {
-	pinMode(bouton_trait_suivant, INPUT);
-	pinMode(bouton_confirmer, INPUT);
+	pinMode(bouton_suivant, INPUT);
+	pinMode(bouton_distrib, INPUT);
 	lcd.begin(16, 2);
 #ifdef LcdRgb
 	lcd.setRGB(couleur_p, couleur_v, couleur_b);
 #endif
 	Affichage();
+	Serial.begin(9600);
+	Serial.println("damio");
 }
 
 
 void loop() {
-	etat_bouton_g = digitalRead(bouton_trait_suivant);
-	etat_bouton_d = digitalRead(bouton_confirmer);
+	e_suivant = digitalRead(bouton_suivant);
+	e_distrib = digitalRead(bouton_distrib);
 
 	// On sélectionne le jours suivant
-	if (etat_bouton_g != dernier_etat_bouton_g && etat_bouton_g == HIGH) {
+	if (e_suivant != der_e_suivant && e_suivant == HIGH) {
 		jour_choisi = (jour_choisi +1) % NB_JOURS;
 		Affichage();
 	}
 
 	// On lance le traitement
-	if (etat_bouton_d != dernier_etat_bouton_d && etat_bouton_d == HIGH) {
-		Serial.begin(9600);
-		Serial.println("damio");
+	else if (e_distrib != der_e_distrib && e_distrib == HIGH) {
+		distribution = true;
+	}
+	
+	// Distribution des médicaments
+	if (distribution) {
+		Serial.println("uuu");
+		// Placer le pilulier à l'endroit par défaut.
 		for (int repas = 0; repas < NB_PRISES; repas++) {
+			// Décaller le pilulier sur la largeur pour positionner le bon repas.
 			Serial.print("repas numéro : ");
 			Serial.println(repas);
 			for (int medoc = 0; medoc < NB_MEDICAMENTS; medoc++) {
-				Serial.print(id_medicaments[medoc]);
-				Serial.print(": ");
-				Serial.println((int)traitement[jour_choisi][repas][medoc]);
+				// Si (int)traitement[jour_choisi][repas][medoc] != 0:
+				if ((int)traitement[jour_choisi][repas][medoc] != 0) {
+					Serial.print(id_medicaments[medoc]);
+					Serial.print(": ");
+					Serial.println((int)traitement[jour_choisi][repas][medoc]);
+					// On place le pilulier sous le distributeur du médicament
+					// On fait vibrer le réservoir
+					// On fait sortir le bon nombre de médicaments
+					// Vérifier que les médicaments soit bien passé?
+					// Arrêter de vibrer le réservoir
+
+					// Tout le temps vérifier que le moteur ne soit pas bloqué
+					// Afficher une barre de progression sur l'écran.
+					// Afficher des messages sur l'écran en cas de problème
+					// Décaler le pilulier avec un certain nombre de tours ou un système asseri en position?
+					// Éviter de tout bloquer le système avec les boucles imbriqués.
+				}
 			}
+			Serial.println(' ');
 		}
+		/* Serial.println("uuu"); */
+		distribution = false;
 	}
 
-	dernier_etat_bouton_g = etat_bouton_g;
-	dernier_etat_bouton_d = etat_bouton_d;
+	der_e_suivant = e_suivant;
+	der_e_distrib = e_distrib;
 }
