@@ -60,7 +60,7 @@ void Deplacer (int medoc, int medoc_suivant, int repas, int repas_suivant, int j
 		(deplacement_medoc[1] + deplacement_jour),   // déplacement total en y
 	};
 
-	// test:
+	// debug:
 	/* Serial.print("déplacement de medoc "); */
 	/* Serial.print(medoc); */
 	/* Serial.print(" vers "); */
