@@ -42,6 +42,21 @@ void Affichage() {
 }
 
 
+void Deplacer (int medoc, int repas, int medoc_suivant, int repas_suivant) {
+	float deplacement[2] = { 
+		(position_medoc[medoc_suivant] - position_medoc[medoc]),
+		(position_repas[repas_suivant] - position_repas[repas])
+	};
+
+	//test
+	for (int test_medoc; test_medoc < NB_MEDICAMENTS; test_medoc++) {
+		Serial.println(position_medoc[test_medoc *2 + 0]);
+		Serial.println(position_medoc[test_medoc *2 + 1]);
+	}
+	// Commander les moteurs de la plaque motrice pour faire ce déplacement.
+}
+
+
 void setup() {
 	pinMode(bouton_suivant, INPUT);
 	pinMode(bouton_distrib, INPUT);
@@ -72,6 +87,10 @@ void loop() {
 	
 	// Distribution des médicaments
 	if (distribution) {
+		// test de la fonction.
+		Deplacer(0, 0, 1, 1);
+
+		/*
 		Serial.println("uuu");
 		// Placer le pilulier à l'endroit par défaut.
 		for (int repas = 0; repas < NB_PRISES; repas++) {
@@ -99,8 +118,9 @@ void loop() {
 			}
 			Serial.println(' ');
 		}
-		/* Serial.println("uuu"); */
+		// Serial.println("uuu");
 		distribution = false;
+		*/
 	}
 
 	der_e_suivant = e_suivant;

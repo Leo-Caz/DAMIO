@@ -177,3 +177,44 @@ const char * traitement[NB_JOURS][NB_PRISES] = {
 		[p_soir]  = soir1,
 	},
 };
+
+/* const float position_medoc[NB_MEDICAMENTS] = { */
+/* 	[m_A313]        = {0, 1}, */
+/* 	[m_Alvityl]     = {2, 3}, */
+/* 	[m_Ergyphillus] = {4, 5}, */
+/* 	[m_Eurobiol]    = {6, 7}, */
+/* 	[m_Gelule_Vide] = {8, 9}, */
+/* 	[m_NaCl]        = {0, 1}, */
+/* 	[m_Omeprazole]  = {2, 3}, */
+/* 	[m_Orkambi]     = {4, 5}, */
+/* 	[m_Toco]        = {6, 7}, */
+/* 	[m_Ursolvan]    = {8, 9}, */
+/* 	[m_Zinc]        = {0, 1}, */
+/* 	[m_Zithromax]   = {2, 3}, */
+/* }; */
+
+const float position_medoc[NB_MEDICAMENTS *2] = {
+	0, 1,
+	2, 3,
+	4, 5,
+	6, 7,
+	8, 9,
+	0, 1,
+	2, 3,
+	4, 5,
+	6, 7,
+	8, 9,
+	0, 1,
+	2, 3,
+};
+
+const float position_repas[NB_JOURS * NB_PRISES] = {
+	1, 2, 3,
+	4, 5, 6,
+	7, 8, 9,
+	1, 2, 3,
+	4, 5, 6,
+	7, 8, 9,
+	1, 2, 3,
+};
+
