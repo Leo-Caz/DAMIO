@@ -42,18 +42,56 @@ void Affichage() {
 }
 
 
-void Deplacer (int medoc, int repas, int medoc_suivant, int repas_suivant) {
-	float deplacement[2] = { 
-		(position_medoc[medoc_suivant] - position_medoc[medoc]),
-		(position_repas[repas_suivant] - position_repas[repas])
+void Deplacer (int medoc, int medoc_suivant, int repas, int repas_suivant, int jour, int jour_suivant) {
+	// déplacement de de la plaque mobile pour les médicaments
+	float deplacement_medoc[2] = { 
+		(position_medoc[medoc_suivant *2] - position_medoc[medoc *2]),       // en x
+		(position_medoc[medoc_suivant *2 +1] - position_medoc[medoc *2 +1])  // en y
 	};
 
-	//test
-	for (int test_medoc; test_medoc < NB_MEDICAMENTS; test_medoc++) {
-		Serial.println(position_medoc[test_medoc *2 + 0]);
-		Serial.println(position_medoc[test_medoc *2 + 1]);
-	}
-	// Commander les moteurs de la plaque motrice pour faire ce déplacement.
+	// déplacement de de la plaque mobile pour les différents repas (sur l'axe x)
+	float deplacement_repas = (position_repas[repas_suivant] - position_repas[repas]);
+
+	// déplacement de de la plaque mobile pour les différents jours (sur l'axe y)
+	float deplacement_jour = (position_jours[jour_suivant] - position_jours[jour]);
+
+	float deplacement[2] = {  // déplacement total de la plaque mobile
+		(deplacement_medoc[0] + deplacement_repas),  // déplacement total en x
+		(deplacement_medoc[1] + deplacement_jour),   // déplacement total en y
+	};
+
+	// test:
+	/* Serial.print("déplacement de medoc "); */
+	/* Serial.print(medoc); */
+	/* Serial.print(" vers "); */
+	/* Serial.println(medoc_suivant); */
+
+	/* Serial.print("x : "); */
+	/* Serial.println(deplacement_medoc[0]); */
+	/* Serial.print("y : "); */
+	/* Serial.println(deplacement_medoc[1]); */
+
+	/* Serial.print("déplacement de repas"); */
+	/* Serial.print(repas); */
+	/* Serial.print(" vers "); */
+	/* Serial.println(repas_suivant); */
+	/* Serial.print("x : "); */
+	/* Serial.println(deplacement_repas); */
+
+	/* Serial.print("déplacement de jour "); */
+	/* Serial.print(jour); */
+	/* Serial.print(" vers "); */
+	/* Serial.println(jour_suivant); */
+	/* Serial.print("y : "); */
+	/* Serial.println(deplacement_jour); */
+
+	/* Serial.print("déplacement en x: "); */
+	/* Serial.println(deplacement[0]); */
+
+	/* Serial.print("déplacement en y: "); */
+	/* Serial.println(deplacement[1]); */
+
+	/* Serial.println(" "); */
 }
 
 
@@ -88,7 +126,12 @@ void loop() {
 	// Distribution des médicaments
 	if (distribution) {
 		// test de la fonction.
-		Deplacer(0, 0, 1, 1);
+		//       medoc, repas, jour
+		Deplacer(0, 0,  1, 1,  1, 0);
+		Deplacer(2, 4,  2, 1,  4, 2);
+		Deplacer(1, 8,  2, 0,  5, 6);
+		Deplacer(5, 3,  1, 2,  0, 5);
+		Deplacer(2, 0,  1, 0,  6, 2);
 
 		/*
 		Serial.println("uuu");
@@ -119,8 +162,9 @@ void loop() {
 			Serial.println(' ');
 		}
 		// Serial.println("uuu");
-		distribution = false;
 		*/
+
+		distribution = false;
 	}
 
 	der_e_suivant = e_suivant;

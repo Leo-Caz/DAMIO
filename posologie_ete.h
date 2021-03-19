@@ -194,27 +194,35 @@ const char * traitement[NB_JOURS][NB_PRISES] = {
 /* }; */
 
 const float position_medoc[NB_MEDICAMENTS *2] = {
-	0, 1,
-	2, 3,
-	4, 5,
-	6, 7,
-	8, 9,
-	0, 1,
-	2, 3,
-	4, 5,
-	6, 7,
-	8, 9,
-	0, 1,
-	2, 3,
-};
+	10, 10,  // A313
+	20, 10,  // Alvityl
+	30, 10,  // Ergyphillus
+	40, 10,  // Eurobiol
+	50, 10,  // Gelule_Vide
+	60, 10,  // NaCl
+	10, 20,  // Omeprazole
+	20, 20,  // Orkambi
+	30, 20,  // Toco
+	40, 20,  // Ursolvan
+	50, 20,  // Zinc
+	60, 20,  // Zithromax
+};  // valeurs à multiplier à une constante en x et y pour avoir
+    // la position des médicaments réelle et non la position logique.
 
-const float position_repas[NB_JOURS * NB_PRISES] = {
-	1, 2, 3,
-	4, 5, 6,
-	7, 8, 9,
-	1, 2, 3,
-	4, 5, 6,
-	7, 8, 9,
-	1, 2, 3,
-};
+const float position_repas[NB_PRISES] = {
+	1,  // matin
+	2,  // midi
+	3,  // soir
+};  // valeurs à multiplier à une constante en y pour avoir
+    // la position des repas réelle et non la position logique.
 
+const float position_jours[NB_JOURS] = {
+	1,  // lundi
+	2,  // mardi
+	3,  // mercredi
+	4,  // jeudi
+	5,  // vendredi
+	6,  // samedi
+	7,  // dimanche
+};  // valeurs à multiplier à une constante en x pour avoir
+    // la position des jours réelle et non la position logique.
